@@ -18,6 +18,10 @@
 
 package org.dataconservancy.bagit.rules;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static org.dataconservancy.bagit.rules.Message.ERR_NULL;
 
 /**
@@ -98,8 +102,8 @@ enum Token {
      * @return a {@code Token} if {@code candidate} represents a valid token
      * @throws java.lang.IllegalArgumentException if {@code candidate} does not represent a valid token
      */
-    static Token parse(CharSequence candidate) {
-        if (candidate == null) {
+    static BoundToken parse(CharSequence candidate) {
+        if (candidate == null || candidate.length() == 0) {
             throw new IllegalArgumentException(String.format(ERR_NULL, "candidate"));
         }
 
@@ -108,7 +112,7 @@ enum Token {
             // See if the candidate token string equals the string representation
             // of the token (except LITERAL), and return it
             if (m.tokenString != null && m.tokenString.equals(candidate)) {
-                return m;
+                return new BoundToken(m, candidate.toString());
             }
 
             // Check to see if the candidate token string _contains_ the string representation
@@ -126,7 +130,36 @@ enum Token {
         // The candidate string did not _contain_ any of the Token string representations
         // We must be left with a LITERAL.
 
-        return LITERAL;
+        return new BoundToken(Token.LITERAL, candidate.toString());
+    }
+
+    static List<BoundToken> parseString(CharSequence candidate) {
+        if (candidate == null || candidate.length() == 0) {
+            throw new IllegalArgumentException(String.format(ERR_NULL, "candidate"));
+        }
+
+        return
+            candidate.chars().mapToObj(c -> {
+                // This code block maps each character in the sequence to a BoundToken.
+
+                // Cast the int to a char, and parse it as a String
+                String s = String.valueOf((char) c);
+                BoundToken bound = null;
+
+                // Iterate over every Token (except LITERAL), and see if the string matches
+                for (Token t : Token.values()) {
+                    if (t.getTokenString() != null && t.getTokenString().equals(s)) {
+                        bound = new BoundToken(t, s);
+                    }
+                }
+
+                // If there was no match, then we must have a LITERAL.
+                if (bound == null) {
+                    bound = new BoundToken(LITERAL, s);
+                }
+
+                return bound;
+            }).collect(Collectors.toList());
     }
 
     @Override

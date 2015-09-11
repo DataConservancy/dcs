@@ -42,6 +42,34 @@ class BoundToken {
         this.bound = toBind;
     }
 
+    /**
+     * Return true if the the value bound to this token is exactly one character.
+     *
+     * @return true if the bound value is exactly one character.
+     */
+    boolean isSingleChar() {
+        return bound.length() == 1;
+    }
+
+    /**
+     * Return the first character of the bound value as a character.
+     *
+     * @return the first character of the bound value.
+     */
+    char asChar() {
+        return bound.charAt(0);
+    }
+
+    /**
+     * Return the entire bound value as a character array.  This is what you would
+     * use if {@link #isSingleChar()} was false.
+     *
+     * @return the bound value as a character array.
+     */
+    char[] asCharArray() {
+        return bound.toCharArray();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
