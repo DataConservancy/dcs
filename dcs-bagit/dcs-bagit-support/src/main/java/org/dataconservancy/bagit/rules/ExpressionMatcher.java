@@ -71,6 +71,13 @@ import java.util.List;
  * <p>
  * Note that methods on this class are package-private, and are not meant to be exposed publicly.
  * </p>
+ * <p>
+ * Because ExpressionMatcher is package-private, it can be hard to tell what the entry points into the ExpressionMatcher
+ * class are, and this test class doesn't help you determine that. Clients of ExpressionMatcher should be calling
+ * <ul>
+ *   <li>{@link org.dataconservancy.bagit.rules.ExpressionMatcher#match(Expression, Expression)}</li>
+ * </ul>
+ * </p>
  */
 public class ExpressionMatcher {
 
@@ -185,7 +192,7 @@ public class ExpressionMatcher {
             return match;
         }
 
-        // match the pattern segment containing literals against every path segment until we get a match
+        // attempt to match every path segment against the pattern segment containing literals.
         int rightAnchor = nextMatch(path, pathDepth, pattern.getPathSegment(nextLiteral));
 
         // if we don't match ...
@@ -193,7 +200,7 @@ public class ExpressionMatcher {
             return false;
         }
 
-        // make sure that every path segment from the left anchor to the right anchor matches the current path expression
+        // make sure that every path segment from the left anchor to the right anchor matches the current pattern
         boolean match = true;
         for (int i = pathDepth; i < rightAnchor; i++) {
             match &= match(pattern.getPathSegment(patternDepth), path.getPathSegment(i));
@@ -270,10 +277,16 @@ public class ExpressionMatcher {
 
         // first, handle the short-circuit cases:
         //  patternPathSegment only contains '*' ; doesn't matter what pathPathSegment has, all tokens match
+        //  patternPathSegment only contains '**' ; doesn't matter what pathPathSegment has, all tokens match
         //  patternPathSegment contains '?' and pathPathSegment only has a single token, the single token matches
         //  patternPathSegment is all literals ; see if the pathPathSegment equals
 
         if (isZeroOrMore(patternPathSegment)) {
+            return true;
+        }
+
+        if (isDirectoryMatchToken(patternPathSegment)) {
+            // this guards match(CharSequence, CharSequence, int, int, int, int) from having to handle '**' tokens.
             return true;
         }
 
@@ -304,6 +317,9 @@ public class ExpressionMatcher {
     /**
      * A recursive method for matching a {@code path} against a {@code pattern}.  The method terminates when there are
      * no more literals or tokens to be matched, or as soon as it determines a match isn't possible and returns early.
+     * <strong>N.B.</strong> this method cannot handle a directory matching token: '**'.  It is expected that the caller
+     * has filtered these tokens out (see {@link #match(java.util.List, java.util.List)} and its
+     * {@link #isDirectoryMatchToken(java.util.List)} check.
      * <p>
      * Developers, when reading this implementation, keep in mind that anchors are always indexes into the {@code path},
      * while {@code tokenIndex} and {@code literalIndex} are always indexes into {@code pattern}. The first major
@@ -579,13 +595,28 @@ public class ExpressionMatcher {
     }
 
     /**
-     * Returns true if every token in the path segment is a {@link Token#ZERO_OR_MORE_CHARACTERS}.
+     * Returns true if the path segment contains a single {@link Token#ZERO_OR_MORE_CHARACTERS} token.
      *
      * @param pathSegment the path segment containing arbitrary tokens
-     * @return true if every token in the path segment is a {@code ZERO_OR_MORE_CHARACTERS} token.
+     * @return true if the only token in the path segment is a {@code ZERO_OR_MORE_CHARACTERS} token.
      */
-    private boolean isZeroOrMore(List<BoundToken> pathSegment) {
+    boolean isZeroOrMore(List<BoundToken> pathSegment) {
         return pathSegment.size() == 1 && pathSegment.get(0).token == Token.ZERO_OR_MORE_CHARACTERS;
+
+
+    }
+
+    /**
+     * Returns true if the path segment contains a single {@link Token#DIRECTORY} token, or exactly two
+     * {@link Token#ZERO_OR_MORE_CHARACTERS} tokens.
+     *
+     * @param pathSegment the path segment containing arbitrary tokens
+     * @return true if the path segment will match a directory
+     */
+    boolean isDirectoryMatchToken(List<BoundToken> pathSegment) {
+        return (pathSegment.size() == 1 && pathSegment.get(0).token == Token.DIRECTORY) ||
+                (pathSegment.size() == 2 && pathSegment.get(0).token == Token.ZERO_OR_MORE_CHARACTERS
+                        && pathSegment.get(1).token == Token.ZERO_OR_MORE_CHARACTERS);
     }
 
     /**
@@ -594,7 +625,7 @@ public class ExpressionMatcher {
      * @param pathSegment the path segment containing arbitrary tokens
      * @return true if the single token in the path segment is a {@code EXACTLY_ONE_CHARACTER} token.
      */
-    private boolean isExactlyOne(List<BoundToken> pathSegment) {
+    boolean isExactlyOne(List<BoundToken> pathSegment) {
         return pathSegment.size() == 1 && pathSegment.get(0).token == Token.EXACTLY_ONE_CHARACTER;
     }
 
