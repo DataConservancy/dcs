@@ -606,7 +606,8 @@ public class ExpressionMatcher {
      * @return the sequence of token values
      */
     private CharSequence toCharSeq(List<BoundToken> tokens) {
-        return tokens.stream().collect(StringBuilder::new, StringBuilder::append, StringBuilder::append);
+        return tokens.stream().collect(StringBuilder::new, (sb, bt) -> sb.append(bt.bound),
+                StringBuilder::append).toString();
     }
 
     /**
