@@ -152,12 +152,4 @@ public interface DomainProfileService {
      * @param status
      */
     void ignoreNode(Node node, boolean status);
-
-    /**
-     * Mark a node and all descendants as ignored. This may cause the types of
-     * other nodes to change.
-     * 
-     * @param node
-     */
-    void unignoreNode(Node node);
 }
