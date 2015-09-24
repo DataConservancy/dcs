@@ -41,4 +41,9 @@ public interface Node {
      * @return Type of the node.
      */
     URI getNodeType();
+
+    /**
+     * @return Ignored status.
+     */
+    boolean isIgnored();
 }

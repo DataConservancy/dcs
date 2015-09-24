@@ -122,7 +122,7 @@ public interface DomainProfileService {
     boolean validateTree(Node root, boolean check_properties);
 
     /**
-     * Attempt to assign node types to a node such that it is valid with respect
+     * Attempt to assign node types to a tree such that it is valid with respect
      * to node types.
      * 
      * @param root
@@ -137,4 +137,27 @@ public interface DomainProfileService {
      * @return root of tree
      */
     Node createTreeFromFileSystem(Path path);
+
+    /**
+     * Change the ignored status of a node. This may cause the types of other
+     * nodes to change.
+     * 
+     * If a node is marked as ignored, all descendants are also marked as
+     * ignored.
+     * 
+     * If a node is marked as not ignored, all descendants and ancestors are
+     * also marked as not ignored.
+     * 
+     * @param node
+     * @param status
+     */
+    void ignoreNode(Node node, boolean status);
+
+    /**
+     * Mark a node and all descendants as ignored. This may cause the types of
+     * other nodes to change.
+     * 
+     * @param node
+     */
+    void unignoreNode(Node node);
 }
