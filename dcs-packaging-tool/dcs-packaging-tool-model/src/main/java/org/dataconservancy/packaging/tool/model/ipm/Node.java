@@ -16,34 +16,101 @@ public interface Node {
      * @return Unique identifier of the node in the tree.
      */
     URI getIdentifier();
-
+    
+    
+    /**
+     * Set unique identifier of the node in the tree.
+     * 
+     * @param id
+     */
+    void setIdentifier(URI id);
+    
     /**
      * @return Parent node or null if node is root.
      */
     Node getParent();
 
     /**
+     * Set the parent node.
+     * 
+     * @param parent
+     */
+    void setParent(Node parent);
+    
+    /**
      * @return Children of node.
      */
     List<Node> getChildren();
 
     /**
+     * Add a child node. The parent of the child node will be set to this node.
+     * 
+     * @param node
+     */
+    void addChild(Node node);
+    
+    /**
+     * Remove a child node.
+     * 
+     * @param node
+     */
+    void removeChild(Node node);
+    
+    /**
      * @return Identifier of domain object associated with node.
      */
     URI getDomainObject();
 
+    
+    /**
+     * Set identifier of domain object associated with node.
+     * 
+     * @param id
+     */
+    void setDomainObject(URI id);
+    
+    
     /**
      * @return Location of data associated with Node.
      */
     URI getDataLocation();
 
     /**
+     * Set location of data associated with node.
+     */
+    void setDataLocation(URI loc);
+    
+    /**
      * @return Type of the node.
      */
     URI getNodeType();
 
     /**
+     * Set the type of the node.
+     * 
+     * @param type
+     */
+    void setNodeType(URI type);
+
+    /**
      * @return Ignored status.
      */
     boolean isIgnored();
+
+    /**
+     * Set ignored status.
+     * 
+     * @param status
+     */
+    void setIgnored(boolean status);
+
+    /**
+     * @return Whether or not the node is a leaf.
+     */
+    boolean isLeaf();
+
+    /**
+     * @return Whether or not node is the root of the tree.
+     */
+    boolean isRoot();
 }

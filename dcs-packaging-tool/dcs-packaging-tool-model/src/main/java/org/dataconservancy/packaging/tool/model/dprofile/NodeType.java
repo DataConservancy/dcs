@@ -10,17 +10,14 @@ import java.util.Map;
  */
 public interface NodeType extends HasDescription {
     /**
+     * @return Unique identifier of this node type.
+     */
+    URI getIdentifier();
+    
+    /**
      * @return The type of the corresponding domain object
      */
     URI getDomainType();
-
-    /**
-     * Each child node must meet at least one of these constraints. A null
-     * constraint is the case of having no children.
-     * 
-     * @return Constraints on child nodes.
-     */
-    List<NodeConstraint> getChildConstraints();
 
     /**
      * The parent node must meet at least one of these constraints. A null
@@ -57,6 +54,9 @@ public interface NodeType extends HasDescription {
      * @return Mapping of property types to system identifiers.
      */
     Map<PropertyType, URI> getSuppliedProperties();
+
+    // TODO Some hints about file/directory mapping... Must think about how this
+    // happens... BOREM?
 
     /**
      * @return Node must be associated with data.
