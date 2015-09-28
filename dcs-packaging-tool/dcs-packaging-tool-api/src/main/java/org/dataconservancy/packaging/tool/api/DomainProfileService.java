@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.dataconservancy.packaging.tool.model.dprofile.DomainProfile;
 import org.dataconservancy.packaging.tool.model.dprofile.NodeTransform;
+import org.dataconservancy.packaging.tool.model.dprofile.PropertyConstraint;
 import org.dataconservancy.packaging.tool.model.dprofile.PropertyType;
 import org.dataconservancy.packaging.tool.model.dprofile.PropertyValue;
 import org.dataconservancy.packaging.tool.model.ipm.Node;
@@ -58,7 +59,6 @@ public interface DomainProfileService {
 
     /**
      * Check that all the properties on a node satisfy constraints for that node
-     * type and each property value satisfies the constraints for its property
      * type.
      * 
      * @param node
@@ -67,18 +67,9 @@ public interface DomainProfileService {
     boolean validateProperties(Node node);
 
     /**
-     * Check that a property value satisfies the constraints of its property
-     * type.
-     * 
-     * @param value
-     * @return valid or invalid
+     * @return Constraints on node properties.
      */
-    boolean validatePropertyValue(PropertyValue value);
-
-    /**
-     * @return Property types which can be added to the node.
-     */
-    List<PropertyType> listAvailablePropertyTypes();
+    List<PropertyConstraint> getPropertyConstraints(Node node);
 
     /**
      * Format property value as a string according to its type and hint.
@@ -92,10 +83,11 @@ public interface DomainProfileService {
      * Attempt to parse a string into a property value according to its type and
      * hint.
      * 
+     * @param type
      * @param value
      * @return value on success and null on failure
      */
-    PropertyValue parsePropertyValue(String value);
+    PropertyValue parsePropertyValue(PropertyType type, String value);
 
     /**
      * Transform a node.
@@ -123,15 +115,21 @@ public interface DomainProfileService {
 
     /**
      * Attempt to assign node types to a tree such that it is valid with respect
-     * to node types.
+     * to node types. Only the node and its descendants will have types
+     * assigned.
      * 
-     * @param root
+     * The parent of the node must either not exist or be part of a valid tree.
+     * 
+     * TODO Discuss what to do with properties.
+     * 
+     * @param node
      * @return success or failure
      */
-    boolean assignNodeTypes(Node root);
+    boolean assignNodeTypes(Node node);
 
     /**
-     * Create a valid tree from the file system.
+     * Create a tree from the file system. The tree has file data associated
+     * with it, but does not have types assigned to nodes.
      * 
      * @param path
      * @return root of tree
