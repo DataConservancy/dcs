@@ -16,15 +16,14 @@ public interface Node {
      * @return Unique identifier of the node in the tree.
      */
     URI getIdentifier();
-    
-    
+
     /**
      * Set unique identifier of the node in the tree.
      * 
      * @param id
      */
     void setIdentifier(URI id);
-    
+
     /**
      * @return Parent node or null if node is root.
      */
@@ -36,7 +35,7 @@ public interface Node {
      * @param parent
      */
     void setParent(Node parent);
-    
+
     /**
      * @return Children of node.
      */
@@ -48,38 +47,39 @@ public interface Node {
      * @param node
      */
     void addChild(Node node);
-    
+
     /**
      * Remove a child node.
      * 
      * @param node
      */
     void removeChild(Node node);
-    
+
     /**
      * @return Identifier of domain object associated with node.
      */
     URI getDomainObject();
 
-    
     /**
      * Set identifier of domain object associated with node.
      * 
      * @param id
      */
     void setDomainObject(URI id);
-    
-    
-    /**
-     * @return Location of data associated with Node.
-     */
-    URI getDataLocation();
 
     /**
-     * Set location of data associated with node.
+     * @return Information about the file associated with the node.
      */
-    void setDataLocation(URI loc);
-    
+
+    FileInfo getFileInfo();
+
+    /**
+     * Set information about file associated with node.
+     * 
+     * @param info
+     */
+    void setFileInfo(FileInfo info);
+
     /**
      * @return Type of the node.
      */
