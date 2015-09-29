@@ -10,6 +10,8 @@ import java.util.List;
  * Each node is associated with a domain object, file data, and a type. The type
  * of the node constrains its position in the tree and explains how it is mapped
  * to a type of domain object.
+ * 
+ * 
  */
 public interface Node {
     /**
@@ -37,7 +39,7 @@ public interface Node {
     void setParent(Node parent);
 
     /**
-     * @return Children of node.
+     * @return Children of node as a list that should not be modified.
      */
     List<Node> getChildren();
 

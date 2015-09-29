@@ -21,6 +21,13 @@ public interface DomainProfileObjectStore {
     URI createObject(NodeType type);
 
     /**
+     * Change the type of an object, keeping as many properties as possible.
+     * 
+     * @param type
+     */
+    void updateObject(NodeType type);
+
+    /**
      * Add a property to a domain object.
      * 
      * @param object
@@ -56,4 +63,15 @@ public interface DomainProfileObjectStore {
      * @return All properties of a object of a certain type.
      */
     List<PropertyValue> getProperties(URI object, PropertyType type);
+
+    /**
+     * Check for the existence of a relationship.
+     * 
+     * @param subject
+     * @param predicate
+     * @param object
+     * @return Whether or not the relationship exists.
+     */
+    boolean hasRelationship(URI subject, URI predicate, URI object);
+
 }

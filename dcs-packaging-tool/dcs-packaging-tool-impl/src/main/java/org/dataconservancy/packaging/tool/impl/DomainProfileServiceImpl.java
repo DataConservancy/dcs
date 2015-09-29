@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -110,11 +111,33 @@ public class DomainProfileServiceImpl implements DomainProfileService {
             return true;
         }
 
-        NodeType nodeType = object_constraint.getNodeType();
+        // Check type
 
-        URI nodeType2 = object.getNodeType();
+        NodeType object_nt = object_constraint.getNodeType();
 
-        return false;
+        if (!object_nt.getIdentifier().equals(object.getNodeType())) {
+            return false;
+        }
+
+        // Check that existing objects have one of the required predicates
+        // relating them.
+
+        if (subject.getDomainObject() != null && object.getDomainObject() != null) {
+            boolean found_pred = false;
+
+            for (URI pred_uri : object_constraint.getDomainPredicates()) {
+                if (objstore.hasRelationship(subject.getDomainObject(), pred_uri, object.getDomainObject())) {
+                    found_pred = true;
+                    break;
+                }
+            }
+
+            if (!found_pred) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private boolean is_valid_type(Node node, NodeType type) {
@@ -127,20 +150,55 @@ public class DomainProfileServiceImpl implements DomainProfileService {
         return false;
     }
 
-    // TODO This method deals with borem type rules to influence what assignement happens?
+    private List<NodeType> get_valid_types_ordered_by_preference(Node node) {
+        List<NodeType> result = new ArrayList<>();
+
+        // TODO Order by preference somehow...
+
+        for (NodeType nt : profile.getNodeTypes()) {
+            if (is_valid_type(node, nt)) {
+                result.add(nt);
+            }
+        }
+
+        return result;
+    }
 
     @Override
     public boolean assignNodeTypes(Node node) {
-        Node parent = node.getParent();
+        boolean result = assign_node_types(node);
 
-        next: for (NodeType nt : profile.getNodeTypes()) {
-            if (is_valid_type(node, nt)) {
-                node.setNodeType(nt.getIdentifier());
+        if (result) {
+            update_domain_objects(node);
+        }
 
-                for (Node child : node.getChildren()) {
-                    if (!assignNodeTypes(child)) {
-                        continue next;
-                    }
+        return result;
+    }
+
+    private void update_domain_objects(Node node) {
+        NodeType nt = nodetypemap.get(node.getNodeType());
+
+        if (node.getDomainObject() == null) {
+            objstore.updateObject(nt);
+        } else {
+            node.setDomainObject(objstore.createObject(nt));
+        }
+
+        for (Node child : node.getChildren()) {
+            update_domain_objects(child);
+        }
+    }
+
+    // TODO If there are hundreds of thousands of nodes with many types, this
+    // recursive approach may be problematic.
+
+    private boolean assign_node_types(Node node) {
+        next: for (NodeType nt : get_valid_types_ordered_by_preference(node)) {
+            node.setNodeType(nt.getIdentifier());
+
+            for (Node child : node.getChildren()) {
+                if (!assign_node_types(child)) {
+                    continue next;
                 }
 
                 return true;
@@ -162,8 +220,10 @@ public class DomainProfileServiceImpl implements DomainProfileService {
             parent.addChild(node);
         }
 
-        node.setIdentifier(URI.create("uuid:" + UUID.randomUUID().toString()));
-        node.setDataLocation(path.toUri());
+        node.setIdentifier(URI.create("urn:uuid:" + UUID.randomUUID()));
+
+        // TODO
+        node.setFileInfo(null);
 
         // TODO Gather file metadata here and associate to data location?
 
@@ -209,5 +269,12 @@ public class DomainProfileServiceImpl implements DomainProfileService {
                 ignoreNode(child, true);
             }
         }
+    }
+
+    @Override
+    public void propagateInheritedProperties(Node node) {
+        // nodetypemap.get(node.getNodeType()).getInheritableProperties();
+        
+        // TODO Auto-generated method stub
     }
 }

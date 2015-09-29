@@ -90,7 +90,8 @@ public interface DomainProfileService {
     PropertyValue parsePropertyValue(PropertyType type, String value);
 
     /**
-     * Transform a node.
+     * Transform a node. The tree must be valid before a transform and will be
+     * valid after.
      * 
      * @param node
      * @param trans
@@ -120,7 +121,8 @@ public interface DomainProfileService {
      * 
      * The parent of the node must either not exist or be part of a valid tree.
      * 
-     * TODO Discuss what to do with properties.
+     * On success, domain objects will be created if they do not exist or
+     * updated with the new type if they do.
      * 
      * @param node
      * @return success or failure
@@ -150,4 +152,14 @@ public interface DomainProfileService {
      * @param status
      */
     void ignoreNode(Node node, boolean status);
+    
+    
+    /**
+     * TODO: Needed? Is this done automatically?
+     * 
+     * Copy inheritable properties from this node to descendants.
+     * 
+     * @param node
+     */
+    void propagateInheritedProperties(Node node);
 }
