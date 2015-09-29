@@ -4,6 +4,9 @@ import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
+
+//Need way to indicate that hasMetadata matches isMetadataFor
+
 /**
  * The type of a node explains how to map a node to a domain object.
  *
@@ -15,9 +18,9 @@ public interface NodeType extends HasDescription {
     URI getIdentifier();
     
     /**
-     * @return The type of the corresponding domain object
+     * @return The types of the corresponding domain object
      */
-    URI getDomainType();
+   List<URI> getDomainTypes();
 
     /**
      * The parent node must meet at least one of these constraints. A null

@@ -1,6 +1,5 @@
 package org.dataconservancy.packaging.tool.model.dprofile;
 
-import java.net.URI;
 import java.util.List;
 
 /**
@@ -13,8 +12,8 @@ public interface NodeConstraint {
     NodeType getNodeType();
 
     /**
-     * @return The constrained node must be pointed to by exactly one of these
-     *         domain predicates
+     * @return The constrained node must be in exactly one of these
+     *         relationships.
      */
-    List<URI> getDomainPredicates();
+    List<StructuralRelation> getStructuralRelations();
 }

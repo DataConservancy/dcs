@@ -19,6 +19,7 @@ import org.dataconservancy.packaging.tool.model.dprofile.NodeType;
 import org.dataconservancy.packaging.tool.model.dprofile.PropertyConstraint;
 import org.dataconservancy.packaging.tool.model.dprofile.PropertyType;
 import org.dataconservancy.packaging.tool.model.dprofile.PropertyValue;
+import org.dataconservancy.packaging.tool.model.dprofile.StructuralRelation;
 import org.dataconservancy.packaging.tool.model.ipm.Node;
 
 public class DomainProfileServiceImpl implements DomainProfileService {
@@ -106,27 +107,30 @@ public class DomainProfileServiceImpl implements DomainProfileService {
         return false;
     }
 
-    private boolean meets_constraint(Node subject, Node object, NodeConstraint object_constraint) {
-        if (object_constraint == null) {
+    private boolean meets_parent_constraint(Node node, Node parent, NodeConstraint parent_constraint) {
+        if (parent_constraint == null) {
             return true;
         }
 
         // Check type
 
-        NodeType object_nt = object_constraint.getNodeType();
+        NodeType object_nt = parent_constraint.getNodeType();
 
-        if (!object_nt.getIdentifier().equals(object.getNodeType())) {
+        if (!object_nt.getIdentifier().equals(parent.getNodeType())) {
             return false;
         }
 
-        // Check that existing objects have one of the required predicates
-        // relating them.
+        // Check that existing objects have one of the required structural
+        // predicates
 
-        if (subject.getDomainObject() != null && object.getDomainObject() != null) {
+        if (node.getDomainObject() != null && parent.getDomainObject() != null) {
             boolean found_pred = false;
 
-            for (URI pred_uri : object_constraint.getDomainPredicates()) {
-                if (objstore.hasRelationship(subject.getDomainObject(), pred_uri, object.getDomainObject())) {
+            for (StructuralRelation rel : parent_constraint.getStructuralRelations()) {
+                if (objstore.hasRelationship(node.getDomainObject(), rel.getHasParentPredicate(),
+                        parent.getDomainObject())
+                        && objstore.hasRelationship(parent.getDomainObject(), rel.getHasChildPredicate(),
+                                node.getDomainObject())) {
                     found_pred = true;
                     break;
                 }
@@ -142,7 +146,7 @@ public class DomainProfileServiceImpl implements DomainProfileService {
 
     private boolean is_valid_type(Node node, NodeType type) {
         for (NodeConstraint c : type.getParentConstraints()) {
-            if (meets_constraint(node, node.getParent(), c)) {
+            if (meets_parent_constraint(node, node.getParent(), c)) {
                 return true;
             }
         }
@@ -274,7 +278,7 @@ public class DomainProfileServiceImpl implements DomainProfileService {
     @Override
     public void propagateInheritedProperties(Node node) {
         // nodetypemap.get(node.getNodeType()).getInheritableProperties();
-        
+
         // TODO Auto-generated method stub
     }
 }
