@@ -7,12 +7,26 @@ import java.util.List;
  */
 public interface NodeConstraint {
     /**
-     * @return The type the constrained node must be
+     * @return Whether or not the constraint matches any node.
      */
-    NodeType getNodeType();
+    boolean matchesAny();
 
     /**
-     * @return The constrained node must be in exactly one of these
+     * @return Whether or not the constraint matches no node.
+     */
+    boolean matchesNone();
+
+    /**
+     * Only used if matchesAny and matchesNone are false.
+     * 
+     * @return The constrained node must have one of these types.
+     */
+    List<NodeType> getNodeTypes();
+
+    /**
+     * Only used if matchesAny and matchesNone are false.
+     * 
+     * @return The constrained node must be in at least one of these
      *         relationships.
      */
     List<StructuralRelation> getStructuralRelations();

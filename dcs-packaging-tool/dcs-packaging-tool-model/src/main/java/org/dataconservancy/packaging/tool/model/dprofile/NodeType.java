@@ -23,8 +23,7 @@ public interface NodeType extends HasDescription {
    List<URI> getDomainTypes();
 
     /**
-     * The parent node must meet at least one of these constraints. A null
-     * constraint is the case of having no parent.
+     * The parent node must meet at least one of these constraints.
      * 
      * @return Constraints on parent node.
      */

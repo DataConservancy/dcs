@@ -114,9 +114,7 @@ public class DomainProfileServiceImpl implements DomainProfileService {
 
         // Check type
 
-        NodeType object_nt = parent_constraint.getNodeType();
-
-        if (!object_nt.getIdentifier().equals(parent.getNodeType())) {
+        if (!parent_constraint.getNodeTypes().contains(nodetypemap.get(parent.getNodeType()))) {
             return false;
         }
 
@@ -226,10 +224,8 @@ public class DomainProfileServiceImpl implements DomainProfileService {
 
         node.setIdentifier(URI.create("urn:uuid:" + UUID.randomUUID()));
 
-        // TODO
+        // TODO Gather file info here
         node.setFileInfo(null);
-
-        // TODO Gather file metadata here and associate to data location?
 
         if (Files.isRegularFile(path)) {
 

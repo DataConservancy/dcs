@@ -7,10 +7,10 @@ public interface HasDescription {
     /**
      * @return Short label for something.
      */
-    public String getLabel();
+    String getLabel();
 
     /**
      * @return Description of something.
      */
-    public String getDescription();
+    String getDescription();
 }
