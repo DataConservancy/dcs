@@ -30,15 +30,20 @@ public interface DomainProfile extends HasDescription {
     URI getDomainIdentifier();
 
     /**
-     * @return All available node types.
+     * @return All node types.
      */
     List<NodeType> getNodeTypes();
 
     /**
-     * @return All available property types.
+     * @return All property types.
      */
     List<PropertyType> getPropertyTypes();
 
+    /**
+     * @return All property categories.
+     */
+    List<PropertyCategory> getPropertyCategories();
+    
     /**
      * @return All available node transforms.
      */

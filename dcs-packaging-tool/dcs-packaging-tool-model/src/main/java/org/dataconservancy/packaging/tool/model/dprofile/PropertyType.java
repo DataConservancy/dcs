@@ -35,6 +35,11 @@ public interface PropertyType extends HasDescription {
     List<PropertyType> getSubPropertyTypes();
 
     /**
+     * @return Category of property.
+     */
+    PropertyCategory getPropertyCategory();
+
+    /**
      * @return Whether or not user should be allowed to change the value.
      */
     boolean isReadOnly();
