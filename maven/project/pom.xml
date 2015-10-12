@@ -110,7 +110,7 @@
     <!-- Version of SLF4J in use -->
     <dcs.project.slf4j.version>1.7.10</dcs.project.slf4j.version>
     <!-- Version of JUnit in use -->
-    <dcs.project.junit.version>4.9</dcs.project.junit.version>
+    <dcs.project.junit.version>4.12</dcs.project.junit.version>
     <!-- Version of Apache HTTP Components in use -->
     <dcs.project.httpcomponents.version>4.3.3</dcs.project.httpcomponents.version>
     <!-- Version of Apache Tika in use -->
