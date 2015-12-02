@@ -98,7 +98,7 @@
     <!-- Version of Apache commons-codec in use -->
     <dcs.project.commonscodec.version>1.4</dcs.project.commonscodec.version>
     <!-- Version of Apache commons-configuration in use -->
-    <dcs.project.commonsconfiguration.version>1.8</dcs.project.commonsconfiguration.version>
+    <dcs.project.commonsconfiguration.version>1.10</dcs.project.commonsconfiguration.version>
     <!-- Version of Apache commons-pool in use -->
     <dcs.project.commonspool.version>1.6</dcs.project.commonspool.version>
     <!-- Version of Apache commons-collections in use -->
