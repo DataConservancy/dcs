@@ -39,10 +39,87 @@
           <comments>
             Manually added, April 15, 2011
             Updated 8/30/12 - added URL
+            Updated 12/2/15 - updated URL, added organization
           </comments>
         </license>
       </licenses>
-      <url>http://www.antlr.org/</url>
+      <url>http://www.antlr2.org/</url>
+      <organization>
+        <name>ANTLR</name>
+        <url>http://www.antlr.org/</url>
+      </organization>
+    </project>    
+  </supplement>
+  
+  <supplement>
+    <project>
+      <name>ANTLR Grammar Tool</name>
+      <groupId>org.antlr</groupId>
+      <artifactId>antlr</artifactId>
+      <version>3.2</version>
+      <licenses>
+        <license>
+          <name>Antlr License</name>
+          <url>http://www.antlr3.org/license.html</url>
+          <distribution>repo</distribution>
+          <comments>
+            Manually added, December 2, 2015
+          </comments>
+        </license>
+      </licenses>
+      <url>http://www.antlr3.org/</url>
+      <organization>
+        <name>ANTLR</name>
+        <url>http://www.antlr.org/</url>
+      </organization>
+    </project>    
+  </supplement>
+  
+  <supplement>
+    <project>
+      <name>Antlr 3 Runtime</name>
+      <groupId>org.antlr</groupId>
+      <artifactId>antlr-runtime</artifactId>
+      <version>3.2</version>
+      <licenses>
+        <license>
+          <name>Antlr License</name>
+          <url>http://www.antlr3.org/license.html</url>
+          <distribution>repo</distribution>
+          <comments>
+            Manually added, December 2, 2015
+          </comments>
+        </license>
+      </licenses>
+      <url>http://www.antlr3.org/</url>
+      <organization>
+        <name>ANTLR</name>
+        <url>http://www.antlr.org/</url>
+      </organization>
+    </project>    
+  </supplement>
+
+  <supplement>
+    <project>
+      <name>ANTLR StringTemplate</name>
+      <groupId>org.antlr</groupId>
+      <artifactId>stringtemplate</artifactId>
+      <version>3.2</version>
+      <licenses>
+        <license>
+          <name>Antlr License</name>
+          <url>http://www.stringtemplate.org/license.html</url>
+          <distribution>repo</distribution>
+          <comments>
+            Manually added, December 2, 2015
+          </comments>
+        </license>
+      </licenses>
+      <url>http://www.stringtemplate.org</url>
+      <organization>
+        <name>ANTLR</name>
+        <url>http://www.antlr.org/</url>
+      </organization>
     </project>    
   </supplement>
   
@@ -174,6 +251,31 @@
           <comments>Manually added, August 30, 2012</comments>
         </license>
       </licenses>
+    </project>
+  </supplement>
+  
+  <supplement>
+    <project>
+      <name>iText</name>
+      <groupId>com.lowagie</groupId>
+      <artifactId>itext</artifactId>
+      <version>2.0.8</version>
+      <organization>
+        <name>iText</name>
+        <url>http://itextpdf.com/</url>
+      </organization>
+    </project>
+  </supplement>
+  
+  <supplement>
+    <project>
+      <groupId>de.huxhorn.lilith</groupId>
+      <artifactId>de.huxhorn.lilith.3rdparty.flyingsaucer.core-renderer</artifactId>
+      <version>8RC1</version>
+      <organization>
+        <name>Joshua Marinacci</name>
+        <url>https://en.wikipedia.org/wiki/Flying_Saucer_(library)</url>
+      </organization>
     </project>
   </supplement>
   
@@ -450,6 +552,43 @@
   
   <supplement>
     <project>
+      <groupId>bouncycastle</groupId>
+      <artifactId>bcmail-jdk14</artifactId>
+      <version>138</version>
+      <organization>
+        <name>The Legion of the Bouncy Castle</name>
+        <url>https://www.bouncycastle.org/</url>
+      </organization>
+    </project>
+  </supplement>
+  
+  <supplement>
+    <project>
+      <groupId>bouncycastle</groupId>
+      <artifactId>bcprov-jdk14</artifactId>
+      <version>138</version>
+      <organization>
+        <name>The Legion of the Bouncy Castle</name>
+        <url>https://www.bouncycastle.org/</url>
+      </organization>
+    </project>
+  </supplement>
+   
+  <supplement>
+    <project>
+      <groupId>com.google.code.byteseek</groupId>
+      <artifactId>byteseek</artifactId>
+      <version>1.1.1</version>
+      <organization>
+        <name>Matt Palms</name>
+        <url>mailto:mattpalms@gmail.com</url>
+      </organization>
+      <url>https://code.google.com/p/byteseek</url>
+    </project>
+  </supplement>
+  
+  <supplement>
+    <project>
       <name>DOM4J</name>
       <groupId>dom4j</groupId>
       <artifactId>dom4j</artifactId>
@@ -532,6 +671,49 @@
         <name>The Apache Software Foundation</name>
         <url>http://www.apache.org/</url>
       </organization>
+    </project>
+  </supplement>
+  
+  <!-- Like, zero info for what should be here for stax-api -->
+  <!--<supplement>
+    <project>
+      <name>Streaming API for XML (STAX API 1.0)</name>      
+      <groupId>javax.xml.stream</groupId>
+      <artifactId>stax-api</artifactId>
+      <version>1.0-2</version>
+      <url>http://geronimo.apache.org/specs/geronimo-stax-api_1.0_spec</url>
+      <organization>
+        <name>The Apache Software Foundation</name>
+        <url>http://www.apache.org/</url>
+      </organization>
+    </project>
+  </supplement>-->
+  
+  <supplement>
+    <project>
+      <name>Project JAXB</name>      
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+      <version>2.1</version>
+      <url>https://jaxb.java.net/</url>
+      <organization>
+        <name>Glassfish</name>
+        <url>https://glassfish.java.net/</url>
+      </organization>
+      <licenses>
+        <license>
+          <name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.1</name>
+          <url>https://glassfish.java.net/public/CDDL+GPL_1_1.html</url>
+          <distribution>repo</distribution>
+          <comments>Manually added, December 2, 2015</comments>
+        </license>
+        <license>
+          <name>The GNU General Public License (GPL) Version 2</name>
+          <url>https://glassfish.java.net/public/CDDL+GPL_1_1.html</url>
+          <distribution>repo</distribution>
+          <comments>Manually added, December 2, 2015</comments>
+        </license>
+      </licenses>
     </project>
   </supplement>
     
