@@ -491,6 +491,20 @@
       <!-- Exernal (non-DC) project dependencies ================== -->
       <!-- ======================================================== -->
 
+      <!-- Antlr -->
+
+      <dependency>
+        <groupId>org.antlr</groupId>
+        <artifactId>stringtemplate</artifactId>
+        <version>3.2</version>
+        <exclusions>
+          <exclusion>
+            <groupId>antlr</groupId>
+            <artifactId>antlr</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+
       <!--
         | Logging related dependencies (SLF4J, Log4J, etc.)
         +-->
