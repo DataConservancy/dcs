@@ -44,6 +44,10 @@
     <relativePath></relativePath>
   </parent>
 
+  <!--
+    When incrementing this version, also increment the ${supplemental-resources.version} 
+    property below.
+  -->
   <version>1</version>
     
   <scm>
@@ -57,6 +61,13 @@
   </modules>
 
   <properties>
+    
+    <!--
+      Version of the 'supplemental-resources' module to use.
+      Should be the equal to the version of this module,
+      but we can't use interpolation.
+    -->
+    <supplemental-resources.version>1</supplemental-resources.version>
 
     <!--
       Encoding used when Maven processes text files, or produces
@@ -490,7 +501,7 @@
           </resourceBundles>
           <supplementalModelArtifacts>
             <!-- Note 'supplemental-resources' is a child maven module of 'project-pom' -->
-            <supplementalModelArtifact>org.dataconservancy:supplemental-resources:1</supplementalModelArtifact>
+            <supplementalModelArtifact>org.dataconservancy:supplemental-resources:${supplemental-resources.version}</supplementalModelArtifact>
           </supplementalModelArtifacts>
           <supplementalModels>            
             <supplementalModel>/supplemental-models.xml</supplementalModel>
