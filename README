@@ -1,20 +1,14 @@
 Welcome to the Data Conservancy GIT repository!
 
-Everyone on the IRD team should have commit access to the repository.
-
-The Software Development Guide: https://wiki.library.jhu.edu/x/ngWU
+The Software Development Guide: https://wiki.library.jhu.edu/display/IRD/IRD-Software+Development+Guide
 
 Some pointers:
 
-- An example Maven 2 settings.xml file with DC repositories
-and server information is located in maven/settings/settings.xml.
-- The DC Maven 2 parent POM is located in maven/parent/pom.xml.
-- The DC Maven 2 project POM is located in maven/project/pom.xml.
-- An example Subversion client configuration file is located at SVN_CONFIG
+- The DC Maven 3 parent POM is located in maven/parent/pom.xml.
+- The DC Maven 3 project POM is located in maven/project/pom.xml.
 
 Some URLs:
 
 - DC Bamboo instance: http://bamboo.mse.jhu.edu/browse/DC
-- DC Subversion repository: https://scm.dataconservancy.org/svn/
 - DC Maven repository (releases): http://maven.dataconservancy.org/public/releases
 - DC Maven repository (snapshots): http://maven.dataconservancy.org/public/snapshots
