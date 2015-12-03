@@ -12,6 +12,3 @@ This will cause an appropriate tags directory to be created, and the release
 and snapshot artifacts deployed to the appropriate repositories.  Sites can
 be deployed in a separate step.
 
-
-See also:
-https://scm.dataconservancy.org/confluence/x/fwLO
