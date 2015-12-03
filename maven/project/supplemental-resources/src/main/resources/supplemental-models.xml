@@ -552,6 +552,19 @@
   
   <supplement>
     <project>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjrt</artifactId>      
+      <version>1.8.5</version>
+      <url>https://eclipse.org/aspectj/</url>
+      <organization>
+        <name>Eclipse Foundation</name>
+        <url>http://eclipse.org/</url>
+      </organization>
+    </project>
+  </supplement>
+  
+  <supplement>
+    <project>
       <groupId>bouncycastle</groupId>
       <artifactId>bcmail-jdk14</artifactId>
       <version>138</version>
