@@ -480,6 +480,31 @@
           <archetypeCatalog>remote,http://maven.dataconservancy.org/public/snapshots,local</archetypeCatalog>
         </configuration>
       </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-remote-resources-plugin</artifactId>
+        <configuration>
+          <resourceBundles>
+            <resourceBundle>org.apache:apache-jar-resource-bundle:1.4</resourceBundle>
+          </resourceBundles>
+          <supplementalModelArtifacts>
+            <!-- Note 'supplemental-resources' is a child maven module of 'project-pom' -->
+            <supplementalModelArtifact>org.dataconservancy:supplemental-resources:2.0.0-SNAPSHOT</supplementalModelArtifact>
+          </supplementalModelArtifacts>
+          <supplementalModels>            
+            <supplementalModel>/supplemental-models.xml</supplementalModel>
+          </supplementalModels>
+        </configuration>
+        <executions>
+          <execution>
+            <id>license-resources</id>
+            <goals>
+              <goal>process</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 
     </plugins>
 
