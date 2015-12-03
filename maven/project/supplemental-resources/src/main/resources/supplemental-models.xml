@@ -2253,6 +2253,30 @@
   
   <supplement>
     <project>
+      <groupId>xerces</groupId>
+      <artifactId>xercesImpl</artifactId>
+      <version>2.11.0</version>
+      <organization>
+        <name>The Apache Software Foundation</name>
+        <url>http://www.apache.org/</url>
+      </organization>      
+    </project>
+  </supplement>
+
+  <supplement>
+    <project>
+      <groupId>org.apache.thrift</groupId>
+      <artifactId>libthrift</artifactId>
+      <version>0.9.2</version>
+      <organization>
+        <name>The Apache Software Foundation</name>
+        <url>http://www.apache.org/</url>
+      </organization>      
+    </project>
+  </supplement>
+  
+  <supplement>
+    <project>
       <name>Apache XML Commons: XML APIs</name>
       <groupId>xml-apis</groupId>
       <artifactId>xml-apis</artifactId>
