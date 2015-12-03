@@ -490,7 +490,7 @@
           </resourceBundles>
           <supplementalModelArtifacts>
             <!-- Note 'supplemental-resources' is a child maven module of 'project-pom' -->
-            <supplementalModelArtifact>org.dataconservancy:supplemental-resources:2.0.0-SNAPSHOT</supplementalModelArtifact>
+            <supplementalModelArtifact>org.dataconservancy:supplemental-resources:1</supplementalModelArtifact>
           </supplementalModelArtifacts>
           <supplementalModels>            
             <supplementalModel>/supplemental-models.xml</supplementalModel>
