@@ -44,7 +44,7 @@
     <relativePath></relativePath>
   </parent>
 
-  <version>2</version>
+  <version>3</version>
     
   <scm>
     <connection>scm:git:https://github.com/DataConservancy/dcs.git</connection>
@@ -102,7 +102,7 @@
     <!-- Version of Apache commons-pool in use -->
     <dcs.project.commonspool.version>1.6</dcs.project.commonspool.version>
     <!-- Version of Apache commons-collections in use -->
-    <dcs.project.commonscollections.version>3.2.1</dcs.project.commonscollections.version>
+    <dcs.project.commonscollections.version>3.2.2</dcs.project.commonscollections.version>
     <!-- Version of Apache commons-dbcp in use -->
     <dcs.project.commonsdbcp.version>1.4</dcs.project.commonsdbcp.version>
     <!-- Version of Apache commons-fileupload in use -->
@@ -1249,6 +1249,11 @@
           <exclusion>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
+          </exclusion>
+          <!-- DC-2204 -->
+          <exclusion>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
