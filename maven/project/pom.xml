@@ -44,10 +44,6 @@
     <relativePath></relativePath>
   </parent>
 
-  <!--
-    When incrementing this version, also increment the ${supplemental-resources.version} 
-    property below.
-  -->
   <version>1</version>
     
   <scm>
@@ -56,17 +52,8 @@
     <url>https://github.com/DataConservancy/dcs/maven/project/trunk</url>
   </scm>
 
-  <modules>
-    <module>supplemental-resources</module>
-  </modules>
-
   <properties>
     
-    <!--
-      Version of the 'supplemental-resources' module to use.
-      Should be the equal to the version of this module,
-      but we can't use interpolation.
-    -->
     <supplemental-resources.version>1</supplemental-resources.version>
 
     <!--
