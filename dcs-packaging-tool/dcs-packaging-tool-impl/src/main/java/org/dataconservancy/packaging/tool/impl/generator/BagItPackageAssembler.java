@@ -58,10 +58,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
@@ -434,10 +436,8 @@ public class BagItPackageAssembler implements PackageAssembler {
     public void putResource(URI uri, InputStream content) {
         URI resolvableURI = fileURIMap.get(uri);
         File newFile = new File(resolvableURI);
-        try {
-            OutputStream fileOS = new FileOutputStream(newFile);
+        try (OutputStream fileOS = new FileOutputStream(newFile)) {
             IOUtils.copy(content, fileOS);
-            fileOS.close();
         } catch (FileNotFoundException e) {
             throw new PackageToolException(PackagingToolReturnInfo.PKG_FILE_NOT_FOUND_EXCEPTION, e);
         } catch (IOException e) {
@@ -570,8 +570,7 @@ public class BagItPackageAssembler implements PackageAssembler {
     private File writeManifestFile(String alg, Map<File, List<Checksum>> fileChecksums, String fileName)
             throws PackageToolException {
         File manifestFile = new File(bagBaseDir, fileName);
-        try {
-            FileWriter writer = new FileWriter(manifestFile);
+        try (Writer writer = newWriter(manifestFile)){
             String newLine = System.getProperty("line.separator");
             String lineFormat = "%s  %s";
 
@@ -598,8 +597,7 @@ public class BagItPackageAssembler implements PackageAssembler {
 
     private File writeBagInfoTxt() throws PackageToolException {
         File bagInfoFile = new File(bagBaseDir, "bag-info.txt");
-        try {
-            FileWriter writer = new FileWriter(bagInfoFile);
+        try (Writer writer = newWriter(bagInfoFile)) {
             String newLine = System.getProperty("line.separator");
             String lineFormat = "%s: %s ";
 
@@ -639,8 +637,7 @@ public class BagItPackageAssembler implements PackageAssembler {
 
     private File writeBagItTxt() throws PackageToolException {
         File bagItFile = new File(bagBaseDir, "bagit.txt");
-        try {
-            FileWriter writer = new FileWriter(bagItFile);
+        try (Writer writer = newWriter(bagItFile)) {
             String newLine = System.getProperty("line.separator");
             String lineFormat = "%s: %s ";
 
@@ -857,5 +854,17 @@ public class BagItPackageAssembler implements PackageAssembler {
                             compressionFormat,
                             CompressorStreamFactory.GZIP, "gzip", CompressorStreamFactory.BZIP2, CompressorStreamFactory.PACK200));
         }
+    }
+
+    /**
+     * Creates a new Writer that encodes bytes according to {@link #ENCODING}.
+     *
+     * @param forFile the file the Writer will write to
+     * @return a Writer encoding bytes according to {@link #ENCODING}
+     * @throws FileNotFoundException if the supplied file is not found
+     * @throws UnsupportedEncodingException if the {@lnk #ENCODING} is not supported by the platform
+     */
+    private Writer newWriter(File forFile) throws FileNotFoundException, UnsupportedEncodingException {
+        return new OutputStreamWriter(new FileOutputStream(forFile), ENCODING);
     }
 }

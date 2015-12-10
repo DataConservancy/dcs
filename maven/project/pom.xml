@@ -44,11 +44,7 @@
     <relativePath></relativePath>
   </parent>
 
-  <!--
-    When incrementing this version, also increment the ${supplemental-resources.version} 
-    property below.
-  -->
-  <version>1</version>
+  <version>2</version>
     
   <scm>
     <connection>scm:git:https://github.com/DataConservancy/dcs.git</connection>
@@ -56,17 +52,8 @@
     <url>https://github.com/DataConservancy/dcs/maven/project/trunk</url>
   </scm>
 
-  <modules>
-    <module>supplemental-resources</module>
-  </modules>
-
   <properties>
     
-    <!--
-      Version of the 'supplemental-resources' module to use.
-      Should be the equal to the version of this module,
-      but we can't use interpolation.
-    -->
     <supplemental-resources.version>1</supplemental-resources.version>
 
     <!--
@@ -560,6 +547,12 @@
       <!-- ======================================================== -->
       <!-- Exernal (non-DC) project dependencies ================== -->
       <!-- ======================================================== -->
+
+      <dependency>
+        <groupId>uk.gov.nationalarchives</groupId>
+        <artifactId>utf8-validator</artifactId>
+        <version>1.2</version>
+      </dependency>
 
       <!-- Antlr -->
 

@@ -9,6 +9,20 @@
   <artifactId>dcs-packaging-tool-integration</artifactId>
 
   <dependencies>
+    
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.dataconservancy.pkgtool</groupId>
+      <artifactId>dcs-packaging-tool-ser</artifactId>
+      <classifier>tests</classifier>
+      <scope>test</scope>
+    </dependency>
+
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
@@ -25,6 +39,12 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>uk.gov.nationalarchives</groupId>
+      <artifactId>utf8-validator</artifactId>
       <scope>test</scope>
     </dependency>
     
