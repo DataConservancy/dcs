@@ -44,7 +44,7 @@
     <relativePath></relativePath>
   </parent>
 
-  <version>1</version>
+  <version>2</version>
     
   <scm>
     <connection>scm:git:https://github.com/DataConservancy/dcs.git</connection>
@@ -547,6 +547,12 @@
       <!-- ======================================================== -->
       <!-- Exernal (non-DC) project dependencies ================== -->
       <!-- ======================================================== -->
+
+      <dependency>
+        <groupId>uk.gov.nationalarchives</groupId>
+        <artifactId>utf8-validator</artifactId>
+        <version>1.2</version>
+      </dependency>
 
       <!-- Antlr -->
 
