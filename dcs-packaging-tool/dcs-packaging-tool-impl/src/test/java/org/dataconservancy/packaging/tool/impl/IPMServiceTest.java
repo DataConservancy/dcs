@@ -83,7 +83,7 @@ public class IPMServiceTest {
                     break;
                 case "moo":
                     assertEquals(3, child.getChildren().size());
-                    //Check that the "." directory and it's children were ignored.
+                    //Check that the "." directory and its children were ignored.
                     child.getChildren().stream().filter(subChild -> subChild.getFileInfo().getName().equalsIgnoreCase(".steak")).forEach(subChild -> {
                         assertTrue(subChild.isIgnored());
                         assertEquals(1, subChild.getChildren().size());
