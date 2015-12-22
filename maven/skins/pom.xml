@@ -22,5 +22,9 @@
     <artifactId>parent-pom</artifactId>
     <version>3</version>
   </parent>
+
+  <modules>
+    <module>spec</module>
+  </modules>
   
 </project>
