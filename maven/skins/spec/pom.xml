@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>spec</artifactId>
+  <packaging>jar</packaging>
+  <name>Data Conservancy Specification Skin</name>
+  <description>Contains skin and resources for Data Conservancy specifications</description>
+    
+  <parent>
+    <groupId>org.dataconservancy.skins</groupId>
+    <artifactId>skin-parent</artifactId>
+    <version>1</version>
+  </parent>
+  
+  <properties>
+    <bootstrap.version>2.3.2</bootstrap.version>
+    <jquery.version>1.11.2</jquery.version>
+  </properties>
+  
+  <build>
+    
+    <resources>
+      
+      <resource>
+        <directory>.</directory>
+        <targetPath>META-INF</targetPath>
+        <includes>
+          <include>NOTICE</include>
+          <include>LICENSE</include>
+        </includes>
+      </resource>
+      
+      <!-- exclude css and js since will include the minified version -->
+      <resource>
+        <directory>${basedir}/src/main/resources</directory>
+        <excludes>
+          <exclude>css/**</exclude>
+          <exclude>js/**</exclude>
+        </excludes>
+        <filtering>true</filtering> <!-- add skin-info -->
+      </resource>
+      
+      <!-- include the print.css -->
+      <resource>
+        <directory>${basedir}/src/main/resources</directory>
+        <includes>
+          <include>css/print.css</include>
+        </includes>
+      </resource>
+      
+      <!-- include minified only -->
+      <resource>
+        <directory>${project.build.directory}/${project.build.finalName}</directory>
+        <includes>
+          <include>css/apache-maven-fluido-${project.version}.min.css</include>
+          <include>js/apache-maven-fluido-${project.version}.min.js</include>
+        </includes>
+      </resource>
+      
+    </resources>
+    
+    <!--<pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.rat</groupId>
+          <artifactId>apache-rat-plugin</artifactId>
+          <configuration>
+            <excludes combine.children="append">
+              <exclude>src/main/resources/fonts/glyphicons-halflings-regular.svg</exclude>
+              <exclude>src/main/resources/js/prettify.js</exclude>
+              <exclude>src/main/resources/js/jquery-*.js</exclude>
+            </excludes>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>-->
+    
+    <plugins>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <dependencies><!-- TODO remove when upgrading to version 2.8: see MSHARED-325 / MRESOURCES-192 -->
+          <dependency>
+            <groupId>org.apache.maven.shared</groupId>
+            <artifactId>maven-filtering</artifactId>
+            <version>1.3</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <delimiters>
+            <delimiter>@</delimiter>
+          </delimiters>
+          <useDefaultDelimiters>false</useDefaultDelimiters>
+        </configuration>
+      </plugin>
+      
+      <plugin>
+        <groupId>com.samaxes.maven</groupId>
+        <artifactId>maven-minify-plugin</artifactId>
+        <version>1.3.5</version>
+        <executions>
+          <execution>
+            <id>default-minify</id>
+            <phase>generate-resources</phase>
+            <configuration>
+              <webappSourceDir>${basedir}/src/main/resources</webappSourceDir>
+              <cssSourceDir>css</cssSourceDir>
+              <cssSourceFiles>
+                <cssSourceFile>bootstrap-${bootstrap.version}.css</cssSourceFile>
+                <cssSourceFile>maven-base.css</cssSourceFile>
+                <cssSourceFile>maven-theme.css</cssSourceFile>
+                <cssSourceFile>prettify.css</cssSourceFile>
+              </cssSourceFiles>
+              <cssFinalFile>apache-maven-fluido-${project.version}.css</cssFinalFile>
+              <jsSourceDir>js</jsSourceDir>
+              <jsSourceFiles>
+                <jsSourceFile>jquery-${jquery.version}.js</jsSourceFile>
+                <jsSourceFile>bootstrap-${bootstrap.version}.js</jsSourceFile>
+                <jsSourceFile>prettify.js</jsSourceFile>
+                <jsSourceFile>fluido.js</jsSourceFile>
+              </jsSourceFiles>
+              <jsFinalFile>apache-maven-fluido-${project.version}.js</jsFinalFile>
+            </configuration>
+            <goals>
+              <goal>minify</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      
+    </plugins>
+    
+  </build>
+  
+</project>

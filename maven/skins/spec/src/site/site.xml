@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<project xmlns="http://maven.apache.org/DECORATION/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/DECORATION/1.1.0 http://maven.apache.org/xsd/decoration-1.1.0.xsd">
+
+  <bannerLeft>
+    <name>${project.name}</name>
+  </bannerLeft>
+
+  <skin>
+    <groupId>${project.groupId}</groupId>
+    <artifactId>${project.artifactId}</artifactId>
+    <version>${project.version}</version>
+  </skin>
+
+  <custom>
+    <fluidoSkin>
+      <googlePlusOne />
+      <facebookLike />
+      <gitHub>
+        <projectId>apache/maven-skins</projectId>
+        <ribbonOrientation>right</ribbonOrientation>
+        <ribbonColor>gray</ribbonColor>
+      </gitHub>
+    </fluidoSkin>
+  </custom>
+
+  <body>
+
+    <menu ref="parent"/>
+
+    <menu name="Overview">
+      <item name="Introduction" href="./index.html"/>
+      <item name="Sample Page" href="./sample.html"/>
+      <item name="Powered By" href="./poweredby.html"/>
+      <!-- According to http://jira.codehaus.org/browse/MNGSITE-152 -->
+      <item name="License" href="http://www.apache.org/licenses/"/>
+      <item name="Download" href="download.html"/>
+    </menu>
+
+    <menu name="Layouts">
+      <item name="Sidebar" href="./sidebar/index.html"/>
+      <item name="Topbar" href="./topbar/index.html"/>
+      <item name="Topbar (inverse)" href="./topbar-inverse/index.html"/>
+    </menu>
+
+    <menu name="Issues ITs">
+      <item name="MSKINS-10" href="./mskins-10/index.html"/>
+      <item name="MSKINS-13" href="./mskins-13/index.html"/>
+      <item name="MSKINS-14" href="./mskins-14/index.html"/>
+      <item name="MSKINS-14 (sitesearch)" href="./mskins-14_sitesearch/index.html"/>
+      <item name="MSKINS-15" href="./mskins-15/index.html"/>
+      <item name="MSKINS-16" href="./mskins-16/index.html"/>
+      <item name="MSKINS-17" href="./mskins-17/index.html"/>
+      <item name="MSKINS-21" href="./mskins-21/index.html"/>
+      <item name="MSKINS-22" href="./mskins-22/index.html"/>
+      <item name="MSKINS-22 (default)" href="./mskins-22_default/index.html"/>
+      <item name="MSKINS-22 (topbar)" href="./mskins-22_topbar/index.html"/>
+      <item name="MSKINS-23" href="./mskins-23/index.html"/>
+      <item name="MSKINS-24" href="./mskins-24/index.html"/>
+      <item name="MSKINS-24 (topbar)" href="./mskins-24_topbar/index.html"/>
+      <item name="MSKINS-25" href="./mskins-25/index.html"/>
+      <item name="MSKINS-31" href="./mskins-31/index.html"/>
+      <item name="MSKINS-33" href="./mskins-33/index.html"/>
+      <item name="MSKINS-33 (topbar)" href="./mskins-33_topbar/index.html"/>
+      <item name="MSKINS-34" href="./mskins-34/index.html"/>
+      <item name="MSKINS-34 (topbar)" href="./mskins-34_topbar/index.html"/>
+      <item name="MSKINS-41" href="./mskins-41/index.html"/>
+      <item name="MSKINS-72" href="./mskins-72/index.html"/>
+      <item name="MSKINS-75" href="./mskins-75/index.html"/>
+      <item name="MSKINS-76" href="./mskins-76/index.html"/>
+      <item name="MSKINS-76 (topbar)" href="./mskins-76_topbar/index.html"/>
+      <item name="MSKINS-85" href="./mskins-85/index.html"/>
+    </menu>
+
+    <menu ref="reports"/>
+
+    <footer>
+      <div class="row-fluid">Apache Maven, ${project.name}, Apache, the Apache feather logo, and the Apache Maven project logos are trademarks of The Apache Software Foundation.
+      All other marks mentioned may be trademarks or registered trademarks of their respective owners.</div>
+    </footer>
+  </body>
+</project>
