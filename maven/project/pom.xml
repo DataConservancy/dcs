@@ -44,7 +44,7 @@
     <relativePath></relativePath>
   </parent>
 
-  <version>5</version>
+  <version>6</version>
     
   <scm>
     <connection>scm:git:https://github.com/DataConservancy/dcs.git</connection>
@@ -179,6 +179,16 @@
     <pluginManagement>
       
       <plugins>
+
+        <plugin>
+          <groupId>org.apache.rat</groupId>
+          <artifactId>apache-rat-plugin</artifactId>
+          <version>0.11</version>
+          <configuration>
+            <copyrightMessage>Copyright 2015 Johns Hopkins University</copyrightMessage>
+            <excludeSubProjects>false</excludeSubProjects>
+          </configuration>
+        </plugin>
 
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
