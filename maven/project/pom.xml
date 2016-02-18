@@ -184,7 +184,6 @@
     <dcs.project.bagit.version>4.9.0</dcs.project.bagit.version>
   </properties>
 
-
   <!-- Build  ===================================================== -->
 
   <build>
