@@ -241,7 +241,6 @@
           <version>1.9.4</version>
         </plugin>
 
-
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-install-plugin</artifactId>
