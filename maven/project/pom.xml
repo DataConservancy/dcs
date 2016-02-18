@@ -44,7 +44,7 @@
     <relativePath></relativePath>
   </parent>
 
-  <version>6</version>
+  <version>7</version>
     
   <scm>
     <connection>scm:git:https://github.com/DataConservancy/dcs.git</connection>
@@ -78,6 +78,21 @@
     <!-- 
       External dependencies/components 
     -->
+
+    <!-- OSGI version -->
+    <dcs.project.osgi.version>5.0.0</dcs.project.osgi.version>
+
+    <!-- Camel Version -->
+    <dcs.project.camel.version>2.16.1</dcs.project.camel.version>
+
+    <!-- Karaf Version -->
+    <dcs.project.karaf.version>4.0.4</dcs.project.karaf.version>
+
+    <!-- Jena Version -->
+    <dcs.project.jena.version>3.0.0</dcs.project.jena.version>
+
+    <!-- Bundle Plugin Version -->
+    <dcs.project.maven.bundle.plugin.version>3.0.1</dcs.project.maven.bundle.plugin.version>
 
     <!-- Version of Apache Abdera in use -->
     <dcs.project.abdera.version>1.1.2</dcs.project.abdera.version>
@@ -114,7 +129,7 @@
     <!-- Version of Apache HTTP Components in use -->
     <dcs.project.httpcomponents.version>4.3.3</dcs.project.httpcomponents.version>
     <!-- Version of Apache Tika in use -->
-    <dcs.project.tika.version>1.0</dcs.project.tika.version>
+    <dcs.project.tika.version>1.10</dcs.project.tika.version>
     <!-- Version of Hibernate in use -->
     <dcs.project.hibernate.version>4.1.7.Final</dcs.project.hibernate.version>
     <!-- Version of DROID content detection in use -->
@@ -179,6 +194,18 @@
     <pluginManagement>
       
       <plugins>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-scm-publish-plugin</artifactId>
+          <version>1.0-beta-2</version>
+          <configuration>
+            <checkoutDirectory>${project.basedir}/site</checkoutDirectory>
+            <checkinComment>Publishing maven site for ${project.artifactId}:${project.version}</checkinComment>
+            <skipDeletedFiles>true</skipDeletedFiles>
+            <scmBranch>gh-pages</scmBranch>
+          </configuration>
+        </plugin>
 
         <plugin>
           <groupId>org.apache.rat</groupId>
@@ -381,6 +408,58 @@
           <version>1.9.1</version>
         </plugin>
 
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>buildnumber-maven-plugin</artifactId>
+          <version>1.2</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.felix</groupId>
+          <artifactId>maven-bundle-plugin</artifactId>
+          <version>${dcs.project.maven.bundle.plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>0.7.2.201409121644</version>
+          <executions>
+            <!-- Prepares the property pointing to the JaCoCo runtime agent 
+              which is passed as VM argument when Maven the Surefire plugin is executed. -->
+            <execution>
+              <id>pre-unit-test</id>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+              <configuration>
+                <!-- Sets the path to the file which contains the execution 
+                  data. -->
+                <destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
+                <!-- Sets the name of the property containing the settings 
+                  for JaCoCo runtime agent. -->
+                <propertyName>surefireArgLine</propertyName>
+              </configuration>
+            </execution>
+            <!-- Ensures that the code coverage report for unit tests is 
+              created after unit tests have been run. -->
+            <execution>
+              <id>post-unit-test</id>
+              <phase>test</phase>
+              <goals>
+                <goal>report</goal>
+              </goals>
+              <configuration>
+                <!-- Sets the path to the file which contains the execution 
+                  data. -->
+                <dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
+                <!-- Sets the output directory for the code coverage report. -->
+                <outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+
       </plugins>
       
     </pluginManagement>
@@ -548,6 +627,20 @@
       <!-- ======================================================== -->
       <!-- Exernal (non-DC) project dependencies ================== -->
       <!-- ======================================================== -->
+
+      <!-- Camel -->
+
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-velocity</artifactId>
+        <version>${dcs.project.camel.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-mail</artifactId>
+        <version>${dcs.project.camel.version}</version>
+      </dependency>
 
       <dependency>
         <groupId>uk.gov.nationalarchives</groupId>
@@ -960,6 +1053,11 @@
         <version>${dcs.project.tika.version}</version>
       </dependency>
 
+      <dependency>
+        <groupId>org.apache.tika</groupId>
+        <artifactId>tika-java7</artifactId>
+        <version>${dcs.project.tika.version}</version>
+      </dependency>
 
       <!--
         | Apache Axiom
@@ -1418,40 +1516,14 @@
         </exclusions>
       </dependency>
 
-      <!-- 
-        | Random/misc
-        +-->
-
-
-      <!-- 
-        com.yourmediashelf.fedora.client:fedora-client:0.1.2 
-        uses version ranges for Jena and xmlsec dependencies.
-        This causes problems between m2 and m3 builds.  The
-        following two dependency defintions peg the versions
-        used by fedora-client
-      -->
-      <dependency>
-        <groupId>org.apache.jena</groupId>
-        <artifactId>jena</artifactId>
-        <version>3.0.0</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <!--version>1.5.6</version-->
-          </exclusion>
-          <exclusion>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <!--version>1.2.13</version-->
-          </exclusion>
-        </exclusions>
-      </dependency>
+      <!--
+       | Jena
+       +-->
 
       <dependency>
         <groupId>org.apache.jena</groupId>
         <artifactId>jena-core</artifactId>
-        <version>3.0.0</version>
+        <version>${dcs.project.jena.version}</version>
         <exclusions>
           <exclusion>
             <groupId>org.slf4j</groupId>
@@ -1467,7 +1539,7 @@
       <dependency>
         <groupId>org.apache.jena</groupId>
         <artifactId>jena-arq</artifactId>
-        <version>3.0.0</version>
+        <version>${dcs.project.jena.version}</version>
         <exclusions>
           <exclusion>
             <groupId>org.slf4j</groupId>
@@ -1483,7 +1555,7 @@
       <dependency>
         <groupId>org.apache.jena</groupId>
         <artifactId>apache-jena-libs</artifactId>
-        <version>3.0.0</version>
+        <version>${dcs.project.jena.version}</version>
         <type>pom</type>
         <exclusions>
           <exclusion>
@@ -1499,6 +1571,57 @@
             <artifactId>xercesImpl</artifactId>
           </exclusion>
         </exclusions>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.jena</groupId>
+        <artifactId>jena-osgi</artifactId>
+        <version>${jena.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+
+      <!-- 
+        com.yourmediashelf.fedora.client:fedora-client:0.1.2 
+        uses version ranges for Jena and xmlsec dependencies.
+        This causes problems between m2 and m3 builds.  The
+        following two dependency defintions peg the versions
+        used by fedora-client
+      -->
+      <dependency>
+        <groupId>org.apache.jena</groupId>
+        <artifactId>jena</artifactId>
+        <version>${dcs.project.jena.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <!--version>1.5.6</version-->
+          </exclusion>
+          <exclusion>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <!--version>1.2.13</version-->
+          </exclusion>
+        </exclusions>
+      </dependency>
+
+      <!-- 
+        | Random/misc
+        +-->
+
+      <dependency>
+        <groupId>org.jvnet.mock-javamail</groupId>
+        <artifactId>mock-javamail</artifactId>
+        <version>1.9</version>
       </dependency>
 
       <dependency>
