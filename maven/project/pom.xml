@@ -219,8 +219,13 @@
               <exclude>**/.idea/</exclude>
               <exclude>**/target/</exclude>
               <!--
-                Including non-renderable (e.g. that don't show in 'view source') is hacky
-                and implementation specific.
+                Hidden files probably don't need licenses and aren't under source control.
+              -->
+              <exclude>**/.*</exclude>
+              <!--
+                Including non-renderable comments that would hold a license
+                (e.g. that don't show in 'view source') is hacky
+                and implementation specific in Markdown.
               -->
               <exclude>**/*.md</exclude>
               <!--
