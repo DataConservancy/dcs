@@ -44,7 +44,7 @@
     <relativePath></relativePath>
   </parent>
 
-  <version>7</version>
+  <version>8</version>
     
   <scm>
     <connection>scm:git:https://github.com/DataConservancy/dcs.git</connection>
@@ -213,7 +213,32 @@
           <configuration>
             <copyrightMessage>Copyright 2015 Johns Hopkins University</copyrightMessage>
             <excludeSubProjects>false</excludeSubProjects>
+            <excludes>
+              <exclude>**/*.iml</exclude>
+              <exclude>**/*.iws</exclude>
+              <exclude>**/.idea/</exclude>
+              <exclude>**/target/</exclude>
+              <!--
+                Including non-renderable (e.g. that don't show in 'view source') is hacky
+                and implementation specific.
+              -->
+              <exclude>**/*.md</exclude>
+              <!--
+                Test resources often have files in them that
+                aren't amenable to tooling used to add copyrights
+              -->
+              <exclude>**/src/test/resources/</exclude>
+            </excludes>
           </configuration>
+          <executions>
+            <execution>
+              <id>rat-license-check</id>
+              <goals>
+                <goal>check</goal>
+              </goals>
+              <phase>verify</phase>
+            </execution>
+          </executions>
         </plugin>
 
         <plugin>
