@@ -92,9 +92,18 @@ Manually running Checkstyle within IDEA against a particular source file works, 
 
 With that, here's how I use Checkstyle in IDEA:
 
-1. Download the most recent version of [rules](https://github.com/emetsger/dcs/blob/checkstyle/maven/checkstyle-resources/src/main/resources/dc-checkstyle/checkstyle.xml)
+1. Download the most recent version of the Data Conservancy [rules](https://github.com/emetsger/dcs/blob/checkstyle/maven/checkstyle-resources/src/main/resources/dc-checkstyle/checkstyle.xml)
 2. Enable the Checkstyle-IDEA plugin.  I have version 4.34.0.
+  * Navigate to IDEA Preferences ![IDEA preferences](src/site/images/idea/01-idea-preferences.png)
+  * Browse the plugin repository ![IDEA browse plugin repo](src/site/images/idea/02-browse-repos.png)
+  * Search for "checkstyle", and click "Install" ![Checkstyle plugin install](src/site/images/idea/03-checkstyle-repo.png)
+  * Restart IDEA
 3. Configure the plugin to point to the rules file that you downloaded in step 1.  
+  * Navigate to IDEA Preferences, find the Checkstyle preferences under "Other" ![Checkstyle plugin config](src/site/images/idea/04-checkstyle-plugin-configuration.png)
+  * Click the "+" icon to configure a new Checkstyle rules file; point to the rules file you downloaded in step 1 ![Checkstyle rules config](src/site/images/idea/05-configure-checkstyle-rules.png)
+  * Set the path to the Checkstyle suppressions file ![Checkstyle suppression config](src/site/images/idea/06-configure-checkstyle-suppressions.png)
+  * You should be notified that the file is valid ![Checkstyle config valid](src/site/images/idea/07-checkstyle-config-validated.png)
+  * Insure the box is checked, activating the Checkstyle config.  Click OK. ![Checkstyle activate config valid](src/site/images/idea/08-checkstyle-activate-config.png)
 4. I configure the plugin to cover all source files, production and test (because that aligns with how Maven will execute Checkstyle)
 
 ### Eclipse
